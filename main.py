@@ -17,8 +17,8 @@ app = FastAPI()
 @app.post("/predict", response_model=Prediction)
 def predict(text: Text):
     if len(text.text) > 500:
-        raise HTTPException(413, "Text longer than 500 characters")
-    if text.text == "":
+        raise HTTPException(422, "Text longer than 500 characters")
+    if text.text.strip() == "":
         raise HTTPException(400, "Text is empty")
     label = random.choice(["positive", "negative", "neutral"])
     confidence = random.random()
